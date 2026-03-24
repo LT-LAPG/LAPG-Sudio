@@ -3,94 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAPG Studio | Game Page</title>
+    <title>LAPG Studio | Neon Game Hub</title>
     <style>
+        /* NEON CARTOON VIBES */
         body {
-            background-color: #1E1E24; /* Cool dark background */
+            background-color: #0b0c10; /* Super dark background */
             color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
             text-align: center;
             margin: 0;
         }
+        
         nav {
-            background-color: #5271FF;
+            background-color: #1f2833;
             padding: 15px;
+            border-bottom: 4px solid #0ff; /* Neon cyan border */
+            box-shadow: 0 0 15px #0ff; /* Glowing effect */
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
-        nav a {
-            color: white;
+
+        nav a, .settings-btn {
+            color: #fff;
             text-decoration: none;
             font-weight: bold;
             font-size: 18px;
-            margin: 0 15px;
+            background: #ff007f; /* Neon pink */
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 3px solid #fff;
+            cursor: pointer;
+            box-shadow: 0 0 10px #ff007f;
         }
-        .container {
+
+        h1 {
+            color: #c5c6c7;
+            text-shadow: 2px 2px #ff007f, -2px -2px #0ff; /* Cartoon 3D text effect */
+            font-size: 40px;
+        }
+
+        .main-layout {
             display: flex;
             justify-content: space-around;
             padding: 20px;
-            margin-top: 20px;
         }
+
+        /* The Game Box */
         .game-box {
-            background-color: #2b2b36;
-            border: 5px dashed #FFDE59;
-            border-radius: 15px;
-            width: 60%;
+            background-color: #121212;
+            border: 6px dashed #39ff14; /* Neon lime green */
+            box-shadow: 0 0 20px #39ff14;
+            border-radius: 20px;
+            width: 50%;
             height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
         }
-        .leaderboard {
-            background-color: #FF5757;
+
+        /* Side Panels for Chat and Leaderboard */
+        .side-panel {
+            background-color: #1f2833;
+            border: 4px solid #0ff;
+            box-shadow: 0 0 15px #0ff;
             border-radius: 15px;
-            width: 30%;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            width: 20%;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
         }
-        .player {
-            background: white;
-            color: black;
-            margin: 10px 0;
+
+        .chat-box {
+            flex-grow: 1;
+            background: #0b0c10;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            overflow-y: auto;
+            text-align: left;
+            font-size: 14px;
+            height: 200px;
+        }
+
+        .chat-input {
+            width: 90%;
             padding: 10px;
             border-radius: 10px;
+            border: 2px solid #ff007f;
+            background: black;
+            color: white;
+            font-family: inherit;
+        }
+
+        .player {
+            background: #ff007f;
+            margin: 8px 0;
+            padding: 8px;
+            border-radius: 8px;
+            border: 2px solid white;
             font-weight: bold;
             display: flex;
             justify-content: space-between;
+        }
+
+        /* Settings Pop-up (Hidden by default) */
+        #settings-modal {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 35%;
+            width: 30%;
+            background: #1f2833;
+            border: 5px solid #39ff14;
+            box-shadow: 0 0 30px #39ff14;
+            padding: 30px;
+            border-radius: 20px;
+            z-index: 100;
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html">🏠 Back to Home</a>
-        <a href="#">💬 Chat Room (Coming Soon)</a>
+        <a href="index.html">🏠 Home</a>
+        <button class="settings-btn" onclick="toggleSettings()">⚙️ Settings</button>
     </nav>
 
-    <h1>Space Explorer - Play Now!</h1>
+    <h1>⚡ LAPG STUDIO ⚡</h1>
 
-    <div class="container">
-        <div class="game-box">
-            <p>🎮 Your Game Will Go Here! 🎮</p>
+    <div class="main-layout">
+        <div class="side-panel">
+            <h3 style="color: #0ff;">🟢 Online Now</h3>
+            <div id="online-players">
+                <div class="player"><span>LT-LAPG</span> <span>Admin</span></div>
+            </div>
         </div>
 
-        <div class="leaderboard">
-            <h2>🏆 Live Leaderboard</h2>
-            <div class="player"><span>Player 1:</span> <span id="score1">1500</span></div>
-            <div class="player"><span>LT-LAPG:</span> <span id="score2">1200</span></div>
-            <div class="player"><span>ProGamer:</span> <span id="score3">950</span></div>
+        <div class="game-box">
+            <p>🎮 Neon Game Loading... 🎮</p>
+        </div>
+
+        <div class="side-panel">
+            <h3 style="color: #ff007f;">💬 Live Chat</h3>
+            <div class="chat-box" id="chat-messages">
+                <p><b>System:</b> Welcome to the server, LT-LAPG!</p>
+            </div>
+            <input type="text" class="chat-input" id="my-message" placeholder="Type a message..." onkeypress="sendMessage(event)">
         </div>
     </div>
 
+    <div id="settings-modal">
+        <h2 style="color: #39ff14;">Settings</h2>
+        <p>Music Volume: <input type="range" min="1" max="100" value="50"></p>
+        <p>Sound Effects: <input type="checkbox" checked></p>
+        <button class="settings-btn" onclick="toggleSettings()">Close</button>
+    </div>
+
     <script>
-        // This function creates random numbers to pretend the scores are updating
-        function updateScores() {
-            document.getElementById("score1").innerText = Math.floor(Math.random() * 2000) + 1000;
-            document.getElementById("score2").innerText = Math.floor(Math.random() * 2000) + 1000;
-            document.getElementById("score3").innerText = Math.floor(Math.random() * 2000) + 500;
+        // Open and close settings
+        function toggleSettings() {
+            let modal = document.getElementById("settings-modal");
+            if (modal.style.display === "block") {
+                modal.style.display = "none";
+            } else {
+                modal.style.display = "block";
+            }
         }
 
-        // This tells the computer: Run the 'updateScores' function every 5000 milliseconds (5 seconds!)
-        setInterval(updateScores, 5000);
+        // Send a chat message
+        function sendMessage(event) {
+            if (event.key === "Enter") {
+                let input = document.getElementById("my-message");
+                let chatBox = document.getElementById("chat-messages");
+                
+                if (input.value.trim() !== "") {
+                    chatBox.innerHTML += `<p><b>LT-LAPG:</b> ${input.value}</p>`;
+                    input.value = ""; // Clear the box
+                    chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+                }
+            }
+        }
+
+        // Simulate real people joining and chatting
+        let fakeUsers = ["ProGamer2026", "NeonNinja", "PixelKid", "CodeWizard"];
+        let fakeMessages = ["Whoa this site is cool!", "Anyone want to play Space Explorer?", "Hello from the internet!", "LT-LAPG makes the best games."];
+
+        setInterval(function() {
+            // Pick a random fake user
+            let randomUser = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
+            
+            // Add them to the online list
+            let playerList = document.getElementById("online-players");
+            playerList.innerHTML += `<div class="player"><span>${randomUser}</span> <span>Online</span></div>`;
+
+            // Make them say a random message in chat
+            let randomMsg = fakeMessages[Math.floor(Math.random() * fakeMessages.length)];
+            let chatBox = document.getElementById("chat-messages");
+            chatBox.innerHTML += `<p style="color: #0ff;"><b>${randomUser}:</b> ${randomMsg}</p>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+        }, 8000); // Happens every 8 seconds!
     </script>
 
 </body>
