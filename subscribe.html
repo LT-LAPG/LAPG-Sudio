@@ -1,1 +1,18 @@
+// Change the colors/theme and SAVE IT!
+        function changeTheme() {
+            let selectedTheme = document.getElementById("theme-select").value;
+            document.body.className = selectedTheme; 
+            
+            // Put it in the backpack!
+            localStorage.setItem("lapgTheme", selectedTheme); 
+        }
 
+        // When the homepage loads, check the backpack
+        window.onload = function() {
+            let savedTheme = localStorage.getItem("lapgTheme");
+            if (savedTheme) {
+                document.body.className = savedTheme;
+                // Make sure the dropdown menu matches the saved theme
+                document.getElementById("theme-select").value = savedTheme;
+            }
+        };
