@@ -1,18 +1,88 @@
-// Change the colors/theme and SAVE IT!
-        function changeTheme() {
-            let selectedTheme = document.getElementById("theme-select").value;
-            document.body.className = selectedTheme; 
-            
-            // Put it in the backpack!
-            localStorage.setItem("lapgTheme", selectedTheme); 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAPG Studio | Subscriptions</title>
+    <style>
+        /* BASE STYLES & THEMES (Same as your homepage so it matches!) */
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            margin: 0;
+            text-align: center;
+            transition: all 0.5s ease;
         }
+        nav { padding: 15px; display: flex; justify-content: center; gap: 20px; }
+        nav a { color: white; text-decoration: none; font-weight: bold; font-size: 18px; padding: 10px 20px; border-radius: 10px; }
+        header { padding: 40px 20px; color: white; }
 
-        // When the homepage loads, check the backpack
+        /* THEMES */
+        body.theme-neon { background-color: #0b0c10; color: white; }
+        .theme-neon nav { background-color: #1f2833; border-bottom: 4px solid #0ff; }
+        .theme-neon nav a { background: #ff007f; border: 2px solid white; box-shadow: 0 0 10px #ff007f; }
+        .theme-neon header { background: linear-gradient(135deg, #1f2833, #0b0c10); text-shadow: 2px 2px #ff007f, -2px -2px #0ff; }
+        .theme-neon .sub-card { border: 4px dashed #39ff14; background-color: #1f2833; color: white; }
+
+        body.theme-space { background-color: #000022; color: #e0e0ff; background-image: radial-gradient(white 1px, transparent 1px); background-size: 50px 50px; }
+        .theme-space nav { background-color: #000055; }
+        .theme-space nav a { background: #4b0082; }
+        .theme-space header { background: linear-gradient(135deg, #000022, #4b0082); }
+        .theme-space .sub-card { border: 3px solid #e0e0ff; background-color: #000044; color: white; }
+
+        body.theme-sunny { background-color: #87CEEB; color: #333; }
+        .theme-sunny nav { background-color: #FFDE59; }
+        .theme-sunny nav a { background: #FF914D; color: white; }
+        .theme-sunny header { background: linear-gradient(135deg, #FFDE59, #FF914D); }
+        .theme-sunny .sub-card { border: 3px solid #FF914D; background: white; color: black; }
+
+        /* SUBSCRIPTION CARDS */
+        .sub-container { display: flex; justify-content: center; gap: 30px; padding: 40px; }
+        .sub-card { padding: 30px; border-radius: 20px; width: 250px; box-shadow: 0 8px 16px rgba(0,0,0,0.3); }
+        .price { font-size: 30px; font-weight: bold; margin: 10px 0; }
+        .buy-btn { background: #7ED957; color: white; font-size: 20px; font-weight: bold; padding: 10px 20px; border: none; border-radius: 10px; cursor: pointer; width: 100%; margin-top: 20px; }
+    </style>
+</head>
+<body class="theme-neon">
+
+    <nav>
+        <a href="index.html">🏠 Home</a>
+        <a href="game.html">🎮 Game Page</a>
+        <a href="subscribe.html">⭐ Subscriptions</a>
+    </nav>
+
+    <header>
+        <h1>Unlock Pro Features!</h1>
+        <p>Support LAPG Studio and get cool chat badges.</p>
+    </header>
+
+    <div class="sub-container">
+        <div class="sub-card">
+            <h2>Rookie</h2>
+            <div class="price">Free</div>
+            <p>✔️ Play all free games</p>
+            <p>✔️ Standard chat color</p>
+            <button class="buy-btn" style="background: gray;">Current Plan</button>
+        </div>
+
+        <div class="sub-card">
+            <h2>Pro Gamer</h2>
+            <div class="price">$5 / month</div>
+            <p>✔️ Golden chat badge</p>
+            <p>✔️ Custom username colors</p>
+            <p>✔️ Exclusive mini-games</p>
+            <button class="buy-btn">Upgrade Now</button>
+        </div>
+    </div>
+
+    <script>
+        // When this page loads, check the "backpack" for a saved theme!
         window.onload = function() {
             let savedTheme = localStorage.getItem("lapgTheme");
             if (savedTheme) {
-                document.body.className = savedTheme;
-                // Make sure the dropdown menu matches the saved theme
-                document.getElementById("theme-select").value = savedTheme;
+                document.body.className = savedTheme; // Put the saved theme on!
             }
         };
+    </script>
+
+</body>
+</html>
