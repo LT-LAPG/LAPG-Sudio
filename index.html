@@ -3,50 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAPG Studio | Mega Game Hub</title>
+    <title>LAPG Studio | Home</title>
     <style>
+        /* BASE STYLES */
         body {
-            background-color: #f0f4f8;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
             margin: 0;
             text-align: center;
+            transition: all 0.5s ease; /* Makes themes change smoothly */
         }
+        
         nav {
-            background-color: #5271FF;
             padding: 15px;
             display: flex;
-            justify-content: space-around;
-            align-items: center;
+            justify-content: center;
+            gap: 20px;
         }
-        nav a {
+
+        nav a, .settings-btn {
             color: white;
             text-decoration: none;
             font-weight: bold;
             font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
         }
+
         header {
-            background: linear-gradient(135deg, #FF5757, #FFDE59);
             padding: 60px 20px;
             color: white;
         }
+
         .game-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            display: flex;
+            justify-content: center;
             gap: 20px;
             padding: 40px;
         }
+
         .card {
             background: white;
+            color: black;
             border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            transition: 0.3s;
+            padding: 20px;
+            width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
         }
+
         .card:hover {
-            transform: translateY(-10px);
-            border: 3px solid #7ED957;
+            transform: scale(1.1); /* Pop out animation */
         }
-        /* This styles our link to look like a cool button */
+
         .play-btn {
             background-color: #7ED957;
             color: white;
@@ -57,28 +67,66 @@
             display: inline-block;
             margin-top: 10px;
         }
-        .play-btn:hover {
-            background-color: #5cbf36;
+
+        /* 🎨 THEME 1: NEON CARTOON (Default) */
+        body.theme-neon { background-color: #0b0c10; color: white; }
+        .theme-neon nav { background-color: #1f2833; border-bottom: 4px solid #0ff; }
+        .theme-neon nav a, .theme-neon .settings-btn { background: #ff007f; border: 2px solid white; box-shadow: 0 0 10px #ff007f; }
+        .theme-neon header { background: linear-gradient(135deg, #1f2833, #0b0c10); text-shadow: 2px 2px #ff007f, -2px -2px #0ff; }
+        .theme-neon .card { border: 4px dashed #39ff14; background-color: #1f2833; color: white; }
+
+        /* 🌌 THEME 2: DEEP SPACE */
+        body.theme-space { 
+            background-color: #000022; 
+            color: #e0e0ff; 
+            background-image: radial-gradient(white 1px, transparent 1px);
+            background-size: 50px 50px; /* Starry background */
         }
-        footer {
-            background: #333;
-            color: white;
-            padding: 20px;
-            margin-top: 50px;
+        .theme-space nav { background-color: #000055; }
+        .theme-space nav a, .theme-space .settings-btn { background: #4b0082; }
+        .theme-space header { background: linear-gradient(135deg, #000022, #4b0082); }
+        .theme-space .card { border: 3px solid #e0e0ff; background-color: #000044; color: white; }
+
+        /* ☀️ THEME 3: SUNNY DAY */
+        body.theme-sunny { background-color: #87CEEB; color: #333; }
+        .theme-sunny nav { background-color: #FFDE59; }
+        .theme-sunny nav a, .theme-sunny .settings-btn { background: #FF914D; color: white; }
+        .theme-sunny header { background: linear-gradient(135deg, #FFDE59, #FF914D); }
+        .theme-sunny .card { border: 3px solid #FF914D; }
+
+        /* SETTINGS MODAL */
+        #settings-modal {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 35%;
+            width: 30%;
+            background: #fff;
+            color: #000;
+            border: 5px solid #5271FF;
+            padding: 30px;
+            border-radius: 20px;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        select, button {
+            font-size: 16px;
+            padding: 5px;
+            margin: 10px 0;
+            border-radius: 5px;
         }
     </style>
 </head>
-<body>
-
-    <nav>
+<body class="theme-neon"> <nav>
         <a href="index.html">🏠 Home</a>
-        <a href="game.html">🎮 Games</a>
-        <a href="#">🏆 High Scores</a>
+        <a href="game.html">🎮 Game Page</a>
+        <button class="settings-btn" onclick="toggleSettings()">⚙️ Settings</button>
     </nav>
 
     <header>
         <h1>LAPG STUDIO</h1>
-        <p>The biggest collection of kid games on GitHub!</p>
+        <p>Your Cozy Gaming Space</p>
     </header>
 
     <div class="game-grid">
@@ -87,7 +135,6 @@
             <p>Fly through the stars!</p>
             <a href="game.html" class="play-btn">Play Now</a>
         </div>
-        
         <div class="card">
             <h3>Pizza Maker</h3>
             <p>Cook the best pizza!</p>
@@ -95,9 +142,70 @@
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2024 LAPG Studio - Made by LT-LAPG</p>
-    </footer>
+    <audio id="lofi-player" loop>
+        <source id="audio-source" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="settings-modal">
+        <h2>Personalize Your Hub</h2>
+        
+        <p><strong>🎨 Animation Theme:</strong></p>
+        <select id="theme-select" onchange="changeTheme()">
+            <option value="theme-neon">⚡ Neon Cartoon</option>
+            <option value="theme-space">🌌 Deep Space</option>
+            <option value="theme-sunny">☀️ Sunny Day</option>
+        </select>
+
+        <p><strong>🎧 Lo-Fi Study Music:</strong></p>
+        <select id="music-select" onchange="changeMusic()">
+            <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">🎵 Chill Beats</option>
+            <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">🌧️ Cozy Rain Lo-Fi</option>
+            <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">🌙 Midnight Study</option>
+        </select>
+        <br>
+        <button onclick="playMusic()" style="background: #7ED957; color: white; border: none; font-weight: bold;">▶️ Play Music</button>
+        <button onclick="pauseMusic()" style="background: #FF5757; color: white; border: none; font-weight: bold;">⏸️ Pause</button>
+        <br><br>
+        <button onclick="toggleSettings()" style="width: 100%; font-weight: bold;">Close</button>
+    </div>
+
+    <script>
+        // Open and close settings
+        function toggleSettings() {
+            let modal = document.getElementById("settings-modal");
+            if (modal.style.display === "block") {
+                modal.style.display = "none";
+            } else {
+                modal.style.display = "block";
+            }
+        }
+
+        // Change the colors/theme of the website
+        function changeTheme() {
+            let selectedTheme = document.getElementById("theme-select").value;
+            // Remove old themes and add the new one
+            document.body.className = selectedTheme; 
+        }
+
+        // Change the music track
+        function changeMusic() {
+            let player = document.getElementById("lofi-player");
+            let source = document.getElementById("audio-source");
+            let selectedMusic = document.getElementById("music-select").value;
+            
+            source.src = selectedMusic;
+            player.load(); // Tell the player to load the new song
+            player.play(); // Start playing immediately after changing
+        }
+
+        // Play and Pause buttons
+        function playMusic() {
+            document.getElementById("lofi-player").play();
+        }
+        function pauseMusic() {
+            document.getElementById("lofi-player").pause();
+        }
+    </script>
 
 </body>
 </html>
