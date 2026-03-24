@@ -3,75 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAPG Studio | Kids Gaming</title>
+    <title>LAPG Studio | Mega Game Hub</title>
     <style>
-        /* This is the CSS - it makes the site look cool! */
         body {
-            background-color: #FFDE59; /* Bright yellow background */
-            font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
-            text-align: center;
+            background-color: #f0f4f8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #5271FF;
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
         }
         header {
-            background-color: #FF5757; /* Fun red header */
-            padding: 20px;
+            background: linear-gradient(135deg, #FF5757, #FFDE59);
+            padding: 60px 20px;
             color: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-        .container {
-            padding: 50px;
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 40px;
         }
-        .game-card {
+        .card {
             background: white;
-            border: 5px solid #5271FF;
-            border-radius: 20px;
-            display: inline-block;
-            padding: 20px;
-            margin: 20px;
-            width: 250px;
-            transition: transform 0.2s;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: 0.3s;
         }
-        .game-card:hover {
-            transform: scale(1.1); /* Pops out when you hover! */
+        .card:hover {
+            transform: translateY(-10px);
+            border: 3px solid #7ED957;
         }
-        .btn {
-            background-color: #7ED957; /* Bright green button */
-            border: none;
+        /* This styles our link to look like a cool button */
+        .play-btn {
+            background-color: #7ED957;
             color: white;
-            padding: 15px 32px;
-            text-align: center;
+            padding: 10px 20px;
             text-decoration: none;
-            display: inline-block;
-            font-size: 20px;
-            border-radius: 50px;
-            cursor: pointer;
             font-weight: bold;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .play-btn:hover {
+            background-color: #5cbf36;
+        }
+        footer {
+            background: #333;
+            color: white;
+            padding: 20px;
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
 
+    <nav>
+        <a href="index.html">🏠 Home</a>
+        <a href="game.html">🎮 Games</a>
+        <a href="#">🏆 High Scores</a>
+    </nav>
+
     <header>
-        <h1>🎮 LAPG Studio 🎮</h1>
-        <p>The Ultimate Fun Zone for Kids!</p>
+        <h1>LAPG STUDIO</h1>
+        <p>The biggest collection of kid games on GitHub!</p>
     </header>
 
-    <div class="container">
-        <h2>Our Awesome Games</h2>
-        
-        <div class="game-card">
+    <div class="game-grid">
+        <div class="card">
             <h3>Space Explorer</h3>
             <p>Fly through the stars!</p>
-            <button class="btn">Play Now</button>
+            <a href="game.html" class="play-btn">Play Now</a>
         </div>
-
-        <div class="game-card">
-            <h3>Dino Dash</h3>
-            <p>Run fast, little T-Rex!</p>
-            <button class="btn">Play Now</button>
+        
+        <div class="card">
+            <h3>Pizza Maker</h3>
+            <p>Cook the best pizza!</p>
+            <a href="game.html" class="play-btn">Play Now</a>
         </div>
     </div>
+
+    <footer>
+        <p>&copy; 2024 LAPG Studio - Made by LT-LAPG</p>
+    </footer>
 
 </body>
 </html>
